@@ -1,0 +1,61 @@
+%Assume adversary avoids detection at our main
+  %measurement event. Others can be added.
+
+l(E) = msp(userAM, E1, uxas_mon, userAM, uxas)
+ => phi(userAM, uxas, E).
+
+%Assumptions about system dependencies.
+
+ctxt(bootMem, C, C2) => false.
+ctxt(platAM, C, C2) => false.
+
+ctxt(userAM, C, uxas_mon) => C = ker.
+ctxt(userAM, C, uim) => C = ker.
+ctxt(userAM, C, uxas_ctxt) => C = ker.
+ctxt(userAM, C, uxas) => C = ker | C = uxas_ctxt.
+
+%Axioms defining "deep" components
+  %We don't want to see models with deep corruptions
+
+phi(bootMem, img, E) => false.
+l(E) = cor(platAM, C) => phi(bootMem, img, E).
+l(E) = cor(bootMem, img) => l(E2) = msp(platAM, E1, query_img, bootMem, img) & prec(E,E2).
+
+l(E) = cor(userAM, uim) => phi(userAM, ker, E).
+
+l(E) = cor(userAM, ker) => false.
+
+%Axiom defining which components might be corrupted
+%quickly (i.e. after the attestation starts)
+%prec(E, E2) & l(E2) = cor(P,C) & l(E) = msp(T1,T2,T3,T4,T5) => C = uxas_ctxt.
+
+%Axioms about names
+
+query_img = img => false.
+query_img = kim => false.
+query_img = ker => false.
+query_img = uim => false.
+query_img = uxas_mon => false.
+query_img = uxas_ctxt => false.
+query_img = uxas => false.
+img = kim => false.
+img = ker => false.
+img = uim => false.
+img = uxas_mon => false.
+img = uxas_ctxt => false.
+img = uxas => false.
+kim = ker => false.
+kim = uim => false.
+kim = uxas_mon => false.
+kim = uxas_ctxt => false.
+kim = uxas => false.
+ker = uim => false.
+ker = uxas_mon => false.
+ker = uxas_ctxt => false.
+ker = uxas => false.
+uim = uxas_mon => false.
+uim = uxas_ctxt => false.
+uim = uxas => false.
+uxas_mon = uxas_ctxt => false.
+uxas_mon = uxas => false.
+uxas_ctxt = uxas => false.

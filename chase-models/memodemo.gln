@@ -1,0 +1,9 @@
+[ bound = 500, input_order ]
+
+m4_include(`memodemo.gli')m4_dnl
+
+ms_evt(E) => E = e2 | E = e3 | E = e4 | E = e7.
+
+m4_include(`memodemo_assumptions.gli')m4_dnl
+
+m4_include(`thy.gli')m4_dnl
