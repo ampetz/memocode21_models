@@ -6,28 +6,35 @@ l(E) = msp(userAM, E1, uxas_mon, userAM, uxas)
 
 %Assumptions about system dependencies.
 
+% no dependencies for components at bootMem or platAM
 ctxt(bootMem, C, C2) => false.
 ctxt(platAM, C, C2) => false.
 
+% All components at userAM (except ker itself) depend on ker
 ctxt(userAM, C, uxas_mon) => C = ker.
 ctxt(userAM, C, uim) => C = ker.
 ctxt(userAM, C, uxas_ctxt) => C = ker.
+
+% In addition to ker, uxas depends also on uxas_ctxt
 ctxt(userAM, C, uxas) => C = ker | C = uxas_ctxt.
 
 %Axioms defining "deep" components
   %We don't want to see models with deep corruptions
 
+% img at bootMem cannot be corrupted
 phi(bootMem, img, E) => false.
-l(E) = cor(platAM, C) => phi(bootMem, img, E).
-l(E) = cor(bootMem, img) => l(E2) = msp(platAM, E1, query_img, bootMem, img) & prec(E,E2).
 
+%% If considering bootMem corruptions, must happen before query_img
+%l(E) = cor(bootMem, img) & l(E2) = msp(platAM, E1, query_img, bootMem, img) => prec(E,E2).
+
+% The only way components at platAM are corrupt is if the boot image (img) is corrupt
+%l(E) = cor(platAM, C) => phi(bootMem, img, E).
+
+% Only way for userspace integrity measurer to become corrupt is via a kernel corruption
 l(E) = cor(userAM, uim) => phi(userAM, ker, E).
 
+% Toggle off to consider attacks that corrupt ker
 l(E) = cor(userAM, ker) => false.
-
-%Axiom defining which components might be corrupted
-%quickly (i.e. after the attestation starts)
-%prec(E, E2) & l(E2) = cor(P,C) & l(E) = msp(T1,T2,T3,T4,T5) => C = uxas_ctxt.
 
 %Axioms about names
 
