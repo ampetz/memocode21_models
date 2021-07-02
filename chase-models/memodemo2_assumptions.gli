@@ -2,7 +2,7 @@
   %measurement event. Others can be added.
 
 l(E) = msp(userAM, E1, uxas_mon, userAM, uxas)
- => phi(userAM, uxas, E).
+ => phi(userAM, uxas, E) | phi(userAM, uxas_ctxt, E).
 
 %Assumptions about system dependencies.
 
@@ -28,13 +28,13 @@ phi(bootMem, img, E) => false.
 %l(E) = cor(bootMem, img) & l(E2) = msp(platAM, E1, query_img, bootMem, img) => prec(E,E2).
 
 % The only way components at platAM are corrupt is if the boot image (img) is corrupt
-%l(E) = cor(platAM, C) => phi(bootMem, img, E).
+l(E) = cor(platAM, C) => phi(bootMem, img, E).
 
 % Only way for userspace integrity measurer to become corrupt is via a kernel corruption
 l(E) = cor(userAM, uim) => phi(userAM, ker, E).
 
 % Toggle off to consider attacks that corrupt ker
-l(E) = cor(userAM, ker) => false.
+%l(E) = cor(userAM, ker) => false.
 
 %Axioms about names
 

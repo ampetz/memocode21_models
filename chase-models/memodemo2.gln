@@ -1,9 +1,9 @@
 [ bound = 500, input_order ]
 
-m4_include(`memodemo6.gli')m4_dnl
+m4_include(`memodemo2.gli')m4_dnl
 
 ms_evt(E) => E = e2 | E = e3 | E = e7 | E = e8 | E = e10.
 
-m4_include(`memodemo6_assumptions.gli')m4_dnl
+m4_include(`memodemo2_assumptions.gli')m4_dnl
 
 m4_include(`thy.gli')m4_dnl
