@@ -1,9 +1,15 @@
 %Assume adversary avoids detection at our main
   %measurement event. Others can be added.
 
-l(E) = msp(userAM, E1, uam, userAM, uxas)
- => phi(userAM, uxas, E) | phi(userAM, uxas_ctxt, E).
+%l(E) = msp(userAM, E1, uam, userAM, uxas) & prec(E,E2) & phi(userAM, uxas, E2) | phi(userAM, uxas_ctxt, E2).
+ %=> phi(userAM, uxas, E) & phi(userAM, uxas_ctxt, E). %|
+    %phi(userAM, uxas_ctxt, E) |
+    %phi(userAM, uxas, E).
 
+l(E) = msp(userAM, E1, uam, userAM, uxas)
+=> phi(userAM, uxas, E) | phi(userAM, uxas_ctxt, E).
+
+   
 %Assumptions about system dependencies.
 
 % no dependencies for components at bootMem or platAM
@@ -35,7 +41,7 @@ l(E) = cor(platAM, C) => phi(bootMem, img, E).
 l(E) = cor(userAM, ker) => false.
 
 % Only way for user AM (uam) to become corrupt is via a kernel corruption
-l(E) = cor(userAM, uam) => phi(userAM, ker, E).
+%l(E) = cor(userAM, uam) => phi(userAM, ker, E).
 
 %Axioms about names
 
