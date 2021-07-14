@@ -1,7 +1,8 @@
 *heliAM, n: @userAM [
                     @platAM [ (query_img bootMem img) ->
-                              (kim userAM uxas_mon) ->
-                              (kim userAM uxas_ctxt) -> ! 
+                              (kim userAM ker) ->
+                              (uim userAM uam) -> !
                             ] ->
-                    (uxas_mon userAM uxas) -> !
+                    (uam userAM uxas_ctxt) ->
+                    (uam userAM uxas) -> !
                     ]

@@ -1,8 +1,8 @@
 %Assume adversary avoids detection at our main
   %measurement event. Others can be added.
 
-l(E) = msp(userAM, E1, uxas_mon, userAM, uxas)
- => phi(userAM, uxas, E).
+l(E) = msp(userAM, E1, uam, userAM, uxas)
+ => phi(userAM, uxas, E) | phi(userAM, uxas_ctxt, E).
 
 %Assumptions about system dependencies.
 
@@ -10,10 +10,13 @@ l(E) = msp(userAM, E1, uxas_mon, userAM, uxas)
 ctxt(bootMem, C, C2) => false.
 ctxt(platAM, C, C2) => false.
 
-% no dependencies for uxas_mon
-ctxt(userAM, C, uxas_mon) => false.
-% uxas depends only on its context
-ctxt(userAM, C, uxas) => C = uxas_ctxt.
+% All components at userAM (except ker itself) depend on ker
+ctxt(userAM, C, uam) => C = ker.
+ctxt(userAM, C, uxas_ctxt) => C = ker.
+
+% In addition to ker, uxas depends also on uxas_ctxt
+ctxt(userAM, C, uxas) => C = ker | C = uxas_ctxt.
+
 
 %Axioms defining "deep" components
   %We don't want to see models with deep corruptions
@@ -27,20 +30,39 @@ phi(bootMem, img, E) => false.
 % The only way components at platAM are corrupt is if the boot image (img) is corrupt
 l(E) = cor(platAM, C) => phi(bootMem, img, E).
 
+% Toggle off to consider attacks that corrupt ker
+l(E) = cor(userAM, ker) => false.
+
+% Only way for user AM (uam) to become corrupt is via a kernel corruption
+l(E) = cor(userAM, uam) => phi(userAM, ker, E).
+
 %Axioms about names
 
 query_img = img => false.
 query_img = kim => false.
-query_img = uxas_mon => false.
+query_img = ker => false.
+query_img = uim => false.
+query_img = uam => false.
 query_img = uxas_ctxt => false.
 query_img = uxas => false.
 img = kim => false.
-img = uxas_mon => false.
+img = ker => false.
+img = uim => false.
+img = uam => false.
 img = uxas_ctxt => false.
 img = uxas => false.
-kim = uxas_mon => false.
+kim = ker => false.
+kim = uim => false.
+kim = uam => false.
 kim = uxas_ctxt => false.
 kim = uxas => false.
-uxas_mon = uxas_ctxt => false.
-uxas_mon = uxas => false.
+ker = uim => false.
+ker = uam => false.
+ker = uxas_ctxt => false.
+ker = uxas => false.
+uim = uam => false.
+uim = uxas_ctxt => false.
+uim = uxas => false.
+uam = uxas_ctxt => false.
+uam = uxas => false.
 uxas_ctxt = uxas => false.

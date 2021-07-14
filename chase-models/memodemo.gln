@@ -2,7 +2,7 @@
 
 m4_include(`memodemo.gli')m4_dnl
 
-ms_evt(E) => E = e2 | E = e3 | E = e4 | E = e7.
+ms_evt(E) => E = e2 | E = e3 | E = e4 | E = e7 | E = e8.
 
 m4_include(`memodemo_assumptions.gli')m4_dnl
 
