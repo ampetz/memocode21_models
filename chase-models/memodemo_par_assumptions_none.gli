@@ -24,13 +24,11 @@ ctxt(bootMem, C, C2) => false.
 ctxt(platAM, C, C2) => false.
 
 % All components at userAM (except ker itself) depend on ker
-ctxt(userAM, C, uam) => C = ker.
-ctxt(userAM, C, uxas_ctxt) => C = ker.
+%ctxt(userAM, C, uam) => C = ker.
+%ctxt(userAM, C, uxas_ctxt) => C = ker.
 
 % In addition to ker, uxas depends also on uxas_ctxt
-ctxt(userAM, C, uxas) => C = ker | C = uxas_ctxt.
-%ctxt(userAM, ker, uxas).
-%ctxt(userAM, uxas_ctxt, uxas).
+%ctxt(userAM, C, uxas) => C = ker | C = uxas_ctxt.
 
 %Axioms defining "deep" components
   %We don't want to see models with deep corruptions

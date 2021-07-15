@@ -4,6 +4,6 @@ m4_include(`memodemo_par.gli')m4_dnl
 
 ms_evt(E) => E = e2 | E = e4 | E = e5 | E = e10 | E = e11.
 
-m4_include(`memodemo_par_assumptions.gli')m4_dnl
+m4_include(`memodemo_par_assumptions_none.gli')m4_dnl
 
 m4_include(`thy.gli')m4_dnl
