@@ -19,27 +19,27 @@ l(E) = msp(userAM, E1, uam, userAM, uxas)
    
 %Assumptions about system dependencies.
 
-% no dependencies for components at bootMem or platAM
+%% no dependencies for components at bootMem or platAM
 ctxt(bootMem, C, C2) => false.
 ctxt(platAM, C, C2) => false.
 
-% All components at userAM (except ker itself) depend on ker
-%ctxt(userAM, C, uam) => C = ker.
-%ctxt(userAM, C, uxas_ctxt) => C = ker.
+%% All components at userAM (except ker itself) depend on ker
+ctxt(userAM, C, uam) => C = ker.
+ctxt(userAM, C, uxas_ctxt) => C = ker.
 
-% In addition to ker, uxas depends also on uxas_ctxt
-%ctxt(userAM, C, uxas) => C = ker | C = uxas_ctxt.
+%% In addition to ker, uxas depends also on uxas_ctxt
+ctxt(userAM, C, uxas) => C = ker | C = uxas_ctxt.
 
 %Axioms defining "deep" components
   %We don't want to see models with deep corruptions
 
-% img in bootMem cannot be corrupted
+%% img in bootMem cannot be corrupted
 phi(bootMem, img, E) => false.
 
 %% If considering bootMem corruptions, must happen before query_img
 %l(E) = cor(bootMem, img) & l(E2) = msp(platAM, E1, query_img, bootMem, img) => prec(E,E2).
 
-% The only way components at platAM are corrupt is if the boot image (img) is corrupt
+%% The only way components at platAM are corrupt is if the boot image (img) is corrupt
 l(E) = cor(platAM, C) => phi(bootMem, img, E).
 
 % Toggle off to consider attacks that corrupt ker
